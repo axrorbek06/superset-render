@@ -1,0 +1,26 @@
+app = "superset-codex-app"
+primary_region = "ams"
+
+[build]
+  dockerfile = "Dockerfile"
+
+[env]
+  SUPERSET_PORT = "8088"
+  SUPERSET_LOAD_EXAMPLES = "no"
+  PYTHONPATH = "/app/pythonpath"
+
+[http_service]
+  internal_port = 8088
+  force_https = true
+  auto_stop_machines = "off"
+  auto_start_machines = true
+  min_machines_running = 1
+  processes = ["app"]
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 2048
+
+[deploy]
+  release_command = "/app/bin/release.sh"
